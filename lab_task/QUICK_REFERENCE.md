@@ -259,11 +259,11 @@ gcloud container clusters get-credentials us-central1-prod-gke-cluster \
 
 ### Authorized Client IPs
 1. `45.21.151.99/32` (Munich Network)
-2. `68.70.225.213/32` (Network 2)
-3. `68.103.59.243/32` (Network 3)
-4. `47.147.24.137/32` (Network 4)
-5. `208.115.150.123/32` (Network 5)
-6. `20.118.171.229/32` (Network 6)
+2. `68.70.226.96/32` (BinaryFU-DC1-Gate1)
+3. `68.228.239.142/32` (BinaryFU-Mar1-Gate1)
+4. `73.90.26.100/32` (WillowCreek-MX68CW)
+5. `93.127.200.12/32` (Aarrhus-Hostinger)
+6. `172.234.224.17` (interlaken-linux01)
 
 ---
 
