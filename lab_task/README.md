@@ -77,7 +77,17 @@ kubectl logs -n twingate -l app=twingate-connector --tail=50
 - DoH: `136.113.247.244:443`
 - Web UI (Internal): `172.27.32.11:3000`
 
-**For full details, see:** `GKE_DEPLOYMENT_STATUS.md`
+### Internal Subnets
+**Munich Site:**
+- 10.0.128.0/24 (Core), 10.0.129.0/24 (IoT), 10.0.130.0/24 (Mgmt), 10.0.132.0/24 (Docker)
+
+**BinaryFU Site:**
+- 10.101.53.0/24 (JK - 4x /27 subnets), 10.101.12.0/24 (OOB-MGMT), 10.101.20.0/24 (Core-Servers)
+
+**Other Sites:**
+- 192.168.1.0/24 (WillowCreek), 192.168.12.0/24 (Davis)
+
+**For full details, see:** `GKE_DEPLOYMENT_STATUS.md` or `QUICK_REFERENCE.md`
 
 ---
 

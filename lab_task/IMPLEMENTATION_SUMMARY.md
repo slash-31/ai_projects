@@ -36,6 +36,7 @@ Successfully implemented all 4 security hardening recommendations for the GKE cl
 68.228.239.142/32   # BinaryFU-Mar1-Gate1
 73.90.26.100/32     # WillowCreek-MX68CW
 93.127.200.12/32    # Aarrhus-Hostinger
+172.56.169.192/32   # Davis-TMobileGW
 172.234.224.17      # interlaken-linux01
 ```
 
@@ -43,7 +44,7 @@ Successfully implemented all 4 security hardening recommendations for the GKE cl
 ```bash
 gcloud compute firewall-rules update us-central1-prod-ssh-access \
   --project=florida-prod-gke-101025 \
-  --source-ranges=45.21.151.99/32,68.70.226.96/32,68.228.239.142/32,73.90.26.100/32,93.127.200.12/32,172.234.224.17
+  --source-ranges=45.21.151.99/32,68.70.226.96/32,68.228.239.142/32,73.90.26.100/32,93.127.200.12/32,172.56.169.192/32,172.234.224.17
 ```
 
 ### ✅ 3. Persistent Storage for AdGuard

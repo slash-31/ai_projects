@@ -252,10 +252,31 @@ gcloud container clusters get-credentials us-central1-prod-gke-cluster \
 - **AdGuard DoH:** `136.113.247.244:443`
 - **AdGuard Web (Internal):** `172.27.32.11:3000`
 
-### Network CIDRs
+### GKE Network CIDRs
 - **Node CIDR:** `172.27.32.0/24`
 - **Pod CIDR:** `172.27.40.0/21`
 - **Service CIDR:** `172.27.50.0/24`
+
+### Internal Subnets
+
+#### Munich Site
+- **Munich-Core:** `10.0.128.0/24`
+- **Munich-IoT:** `10.0.129.0/24`
+- **Munich-Mgmt:** `10.0.130.0/24`
+- **Munich-Docker:** `10.0.132.0/24`
+
+#### BinaryFU Site
+- **BinaryFU-JK:** `10.101.53.0/24` (Subdivided into 4 x /27 subnets)
+  - **BinaryFU-JK-53-1:** `10.101.53.0/27` (10.101.53.0 - 10.101.53.31)
+  - **BinaryFU-JK-53-2:** `10.101.53.32/27` (10.101.53.32 - 10.101.53.63)
+  - **BinaryFU-JK-53-3:** `10.101.53.64/27` (10.101.53.64 - 10.101.53.95)
+  - **BinaryFU-JK-53-4:** `10.101.53.96/27` (10.101.53.96 - 10.101.53.127)
+- **BinaryFU-OOB-MGMT:** `10.101.12.0/24`
+- **BinaryFU-Core-Servers:** `10.101.20.0/24`
+
+#### Other Sites
+- **WillowCreek-Core:** `192.168.1.0/24`
+- **Davis-Core:** `192.168.12.0/24`
 
 ### Authorized Client IPs
 1. `45.21.151.99/32` (Munich Network)
@@ -263,7 +284,8 @@ gcloud container clusters get-credentials us-central1-prod-gke-cluster \
 3. `68.228.239.142/32` (BinaryFU-Mar1-Gate1)
 4. `73.90.26.100/32` (WillowCreek-MX68CW)
 5. `93.127.200.12/32` (Aarrhus-Hostinger)
-6. `172.234.224.17` (interlaken-linux01)
+6. `172.56.169.192/32` (Davis-TMobileGW)
+7. `172.234.224.17` (interlaken-linux01)
 
 ---
 

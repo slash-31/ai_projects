@@ -70,7 +70,8 @@ gcloud compute routers nats list --router=us-central1-prod-nat-router \
 3. `68.228.239.142/32` (BinaryFU-Mar1-Gate1)
 4. `73.90.26.100/32` (WillowCreek-MX68CW)
 5. `93.127.200.12/32` (Aarrhus-Hostinger)
-6. `172.234.224.17` (interlaken-linux01)
+6. `172.56.169.192/32` (Davis-TMobileGW)
+7. `172.234.224.17` (interlaken-linux01)
 
 **View Firewall Rules:**
 ```bash
@@ -201,7 +202,7 @@ gcloud logging read "resource.type=nat_gateway" \
 ```bash
 gcloud compute firewall-rules update us-central1-prod-ssh-access \
   --project=florida-prod-gke-101025 \
-  --source-ranges=45.21.151.99/32,68.70.226.96/32,68.228.239.142/32,73.90.26.100/32,93.127.200.12/32,172.234.224.17
+  --source-ranges=45.21.151.99/32,68.70.226.96/32,68.228.239.142/32,73.90.26.100/32,93.127.200.12/32,172.56.169.192/32,172.234.224.17
 ```
 
 #### ⚠️ AdGuard Web UI External Access
@@ -336,6 +337,51 @@ Then set `enable_network_policies = true` in `/home/slash-31/argolis_v2/prod-gke
     - Implement Pod Security Standards (PSS)
     - Enable Binary Authorization
     - Configure Workload Identity for pods
+
+---
+
+## 🌐 Network Reference
+
+### GKE Network CIDRs
+- **Node CIDR:** `172.27.32.0/24`
+- **Pod CIDR:** `172.27.40.0/21`
+- **Service CIDR:** `172.27.50.0/24`
+
+### Internal Site Subnets
+
+#### Munich Site
+| Subnet Name | CIDR | Purpose |
+|-------------|------|---------|
+| Munich-Core | `10.0.128.0/24` | Core network |
+| Munich-IoT | `10.0.129.0/24` | IoT devices |
+| Munich-Mgmt | `10.0.130.0/24` | Management network |
+| Munich-Docker | `10.0.132.0/24` | Docker containers |
+
+#### BinaryFU Site
+| Subnet Name | CIDR | Purpose | Notes |
+|-------------|------|---------|-------|
+| BinaryFU-JK | `10.101.53.0/24` | Main network | Subdivided into 4 x /27 subnets |
+| BinaryFU-JK-53-1 | `10.101.53.0/27` | Subnet 1 | Hosts: .0 - .31 |
+| BinaryFU-JK-53-2 | `10.101.53.32/27` | Subnet 2 | Hosts: .32 - .63 |
+| BinaryFU-JK-53-3 | `10.101.53.64/27` | Subnet 3 | Hosts: .64 - .95 |
+| BinaryFU-JK-53-4 | `10.101.53.96/27` | Subnet 4 | Hosts: .96 - .127 |
+| BinaryFU-OOB-MGMT | `10.101.12.0/24` | Out-of-band management | |
+| BinaryFU-Core-Servers | `10.101.20.0/24` | Core server infrastructure | |
+
+#### Other Sites
+| Subnet Name | CIDR | Purpose |
+|-------------|------|---------|
+| WillowCreek-Core | `192.168.1.0/24` | Core network |
+| Davis-Core | `192.168.12.0/24` | Core network |
+
+### Authorized External IPs
+- **Munich Network:** `45.21.151.99/32`
+- **BinaryFU-DC1-Gate1:** `68.70.226.96/32`
+- **BinaryFU-Mar1-Gate1:** `68.228.239.142/32`
+- **WillowCreek-MX68CW:** `73.90.26.100/32`
+- **Aarrhus-Hostinger:** `93.127.200.12/32`
+- **Davis-TMobileGW:** `172.56.169.192/32`
+- **interlaken-linux01:** `172.234.224.17`
 
 ---
 
