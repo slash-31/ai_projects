@@ -1,0 +1,72 @@
+# Certificate files - NEVER commit these
+*.crt
+*.pem
+*.key
+*.p12
+*.pfx
+*.cer
+*.der
+*chain*
+
+# API keys and credentials
+*.key
+api_keys.txt
+credentials.txt
+.env
+
+# Backup files
+backups/
+*.xml
+*.bak
+
+# Log files
+logs/
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test files
+test_*.py
+*_test.py
+pytest_cache/
+
+# Temporary files
+tmp/
+temp/
+*.tmp

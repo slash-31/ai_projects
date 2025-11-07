@@ -1,0 +1,26 @@
+IP_Address,Hostname,Service_Name,Type,Ports,Function,Zone,Namespace
+172.27.0.2,meraki-vmx-small,Meraki vMX,Infrastructure,VPN/IPSec,Meraki vMX VPN Gateway,us-central1-a,N/A
+172.27.32.12,gke-us-central1-prod-cec941c1-no3d,GKE Node,Infrastructure,All,GKE Worker Node (hosts AdGuard/RustDesk),us-central1-a,N/A
+172.27.32.13,gke-us-central1-prod-cec941c1-tcm8,GKE Node,Infrastructure,All,GKE Worker Node,us-central1-a,N/A
+172.27.32.14,gke-us-central1-prod-a8f99a7e-unvt,GKE Node,Infrastructure,All,GKE Worker Node (hosts Twingate),us-central1-b,N/A
+172.27.32.15,gke-us-central1-prod-a8f99a7e-fb67,GKE Node,Infrastructure,All,GKE Worker Node,us-central1-b,N/A
+172.27.32.16,gke-us-central1-prod-8a48695f-v69a,GKE Node,Infrastructure,All,GKE Worker Node (hosts n8n),us-central1-c,N/A
+172.27.32.17,gke-us-central1-prod-8a48695f-upa0,GKE Node,Infrastructure,All,GKE Worker Node (hosts RustDesk/Twingate),us-central1-c,N/A
+172.27.32.11,adguard-web-lb,adguard-web,Internal LoadBalancer,80/TCP,AdGuard Web UI (HTTP),us-central1,adguard
+172.27.32.53,adguard-dns-tcp-internal-lb,adguard-dns-tcp-internal,Internal LoadBalancer,53/TCP,DNS over TCP (Internal),us-central1,adguard
+172.27.32.54,adguard-dns-udp-internal-lb,adguard-dns-udp-internal,Internal LoadBalancer,53/UDP,DNS over UDP (Internal),us-central1,adguard
+172.27.50.129,adguard-dns-tcp-clusterip,adguard-dns-tcp,ClusterIP,53/TCP,Internal cluster DNS TCP,us-central1,adguard
+172.27.50.103,adguard-dns-udp-clusterip,adguard-dns-udp,ClusterIP,53/UDP,Internal cluster DNS UDP,us-central1,adguard
+172.27.50.45,adguard-doh-clusterip,adguard-doh,ClusterIP,443/TCP,DNS-over-HTTPS cluster IP,us-central1,adguard
+172.27.50.250,adguard-web-clusterip,adguard-web,ClusterIP,80/TCP,Web UI cluster IP,us-central1,adguard
+172.27.50.189,adguard-dns-tcp-internal-clusterip,adguard-dns-tcp-internal,ClusterIP,53/TCP,Internal DNS TCP cluster IP,us-central1,adguard
+172.27.50.92,adguard-dns-udp-internal-clusterip,adguard-dns-udp-internal,ClusterIP,53/UDP,Internal DNS UDP cluster IP,us-central1,adguard
+172.27.46.5,adguard-home-pod,adguard-home-54569cf74c-skxqj,Pod,All,AdGuard container,us-central1-a,adguard
+172.27.50.170,rustdesk-hbbr-clusterip,rustdesk-hbbr,ClusterIP,21117+21119/TCP,Relay server cluster IP,us-central1,rustdesk
+172.27.50.157,rustdesk-hbbs-client-clusterip,rustdesk-hbbs-client,ClusterIP,21115-21118/TCP+UDP,ID/Rendezvous cluster IP,us-central1,rustdesk
+172.27.46.7,rustdesk-hbbr-pod-1,rustdesk-hbbr-794885cf85-7wtdd,Pod,All,Relay server container #1,us-central1-a,rustdesk
+172.27.40.9,rustdesk-hbbr-pod-2,rustdesk-hbbr-794885cf85-ml8qp,Pod,All,Relay server container #2,us-central1-c,rustdesk
+172.27.50.94,n8n-clusterip,n8n-service,ClusterIP,443/TCP,n8n workflow automation cluster IP,us-central1,n8n
+172.27.43.7,n8n-pod,n8n-559548c698-r7n6c,Pod,All,n8n workflow container,us-central1-c,n8n
+172.27.44.6,twingate-connector-pod-1,twingate-connector-74998c997c-bl427,Pod,All,Twingate connector container #1,us-central1-b,twingate
+172.27.40.8,twingate-connector-pod-2,twingate-connector-74998c997c-w2qd6,Pod,All,Twingate connector container #2,us-central1-c,twingate

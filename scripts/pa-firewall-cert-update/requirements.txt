@@ -1,0 +1,25 @@
+# Palo Alto Firewall Certificate Update Script Dependencies
+
+# HTTP client for REST API calls
+requests>=2.31.0
+
+# XML parsing
+lxml>=4.9.3
+
+# Command-line argument parsing (built-in, listed for reference)
+# argparse
+
+# Secure password/passphrase input
+# getpass (built-in)
+
+# Logging (built-in)
+# logging
+
+# Date/time handling (built-in)
+# datetime
+
+# File operations (built-in)
+# os, pathlib
+
+# JSON handling (built-in)
+# json

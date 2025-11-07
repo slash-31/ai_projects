@@ -1,0 +1,153 @@
+========================================================================
+Example Output - Dry Run Mode
+========================================================================
+
+$ ./update-firewall-gke.sh dry-run
+
+[INFO] Found virtual environment at: /home/slash-31/ai_projects/scripts/venv
+[INFO] Using venv Python: /home/slash-31/ai_projects/scripts/venv/bin/python
+
+[WARN] Running in DRY RUN mode - no changes will be made
+[INFO] Starting firewall update...
+[INFO] Python: /home/slash-31/ai_projects/scripts/venv/bin/python
+[INFO] Firewall: munich-pa-415.securitydude.us
+[INFO] CSV File: /home/slash-31/ai_projects/scripts/gke-cluster-private-ips.csv
+[INFO] Environment: prod
+[INFO] Cluster: us-central1-prod
+
+======================================================================
+Palo Alto Firewall Address Object Manager v1.0.0
+======================================================================
+
+2025-11-07 10:00:00 - INFO - Initialized connection to firewall: munich-pa-415.securitydude.us
+2025-11-07 10:00:01 - INFO - ✓ Successfully connected to firewall
+
+2025-11-07 10:00:02 - INFO - Processing CSV file: gke-cluster-private-ips.csv
+2025-11-07 10:00:02 - INFO - DRY RUN MODE - No changes will be made
+2025-11-07 10:00:02 - INFO - Row 2: meraki-vmx-small (172.27.0.2)
+2025-11-07 10:00:02 - INFO -   Description: Meraki vMX VPN Gateway - 172.27.0.2
+2025-11-07 10:00:02 - INFO -   Tags: env:prod, type:infrastructure, namespace:none, zone:us-central1-a, service:meraki, cluster:us-central1-prod, auto-created
+2025-11-07 10:00:02 - INFO -   [DRY RUN] Would create this object
+
+2025-11-07 10:00:03 - INFO - Row 3: gke-us-central1-prod-cec941c1-no3d (172.27.32.12)
+2025-11-07 10:00:03 - INFO -   Description: GKE Worker Node (hosts AdGuard/RustDesk) - 172.27.32.12
+2025-11-07 10:00:03 - INFO -   Tags: env:prod, type:infrastructure, namespace:none, zone:us-central1-a, service:gke, cluster:us-central1-prod, auto-created
+2025-11-07 10:00:03 - INFO -   [DRY RUN] Would create this object
+
+2025-11-07 10:00:04 - INFO - Row 4: adguard-web-lb (172.27.32.11)
+2025-11-07 10:00:04 - INFO -   Description: AdGuard Web UI (HTTP) - 172.27.32.11
+2025-11-07 10:00:04 - INFO -   Tags: env:prod, type:internalloadbalancer, namespace:adguard, zone:us-central1, service:adguard, cluster:us-central1-prod, auto-created
+2025-11-07 10:00:04 - INFO -   [DRY RUN] Would create this object
+
+... (22 more objects) ...
+
+======================================================================
+Summary
+======================================================================
+Created:  25
+Failed:   0
+Skipped:  0
+
+DRY RUN completed - no changes were made to the firewall
+======================================================================
+
+[INFO] Firewall update completed successfully!
+
+========================================================================
+Example Output - Real Run Mode
+========================================================================
+
+$ ./update-firewall-gke.sh
+
+[INFO] Found virtual environment at: /home/slash-31/ai_projects/scripts/venv
+[INFO] Using venv Python: /home/slash-31/ai_projects/scripts/venv/bin/python
+
+[INFO] Starting firewall update...
+[INFO] Python: /home/slash-31/ai_projects/scripts/venv/bin/python
+[INFO] Firewall: munich-pa-415.securitydude.us
+[INFO] CSV File: /home/slash-31/ai_projects/scripts/gke-cluster-private-ips.csv
+[INFO] Environment: prod
+[INFO] Cluster: us-central1-prod
+
+======================================================================
+Palo Alto Firewall Address Object Manager v1.0.0
+======================================================================
+
+2025-11-07 10:05:00 - INFO - Initialized connection to firewall: munich-pa-415.securitydude.us
+2025-11-07 10:05:01 - INFO - ✓ Successfully connected to firewall
+
+2025-11-07 10:05:02 - INFO - Processing CSV file: gke-cluster-private-ips.csv
+2025-11-07 10:05:02 - INFO - Row 2: meraki-vmx-small (172.27.0.2)
+2025-11-07 10:05:02 - INFO -   Description: Meraki vMX VPN Gateway - 172.27.0.2
+2025-11-07 10:05:02 - INFO -   Tags: env:prod, type:infrastructure, namespace:none, zone:us-central1-a, service:meraki, cluster:us-central1-prod, auto-created
+2025-11-07 10:05:03 - INFO - ✓ Created address object: meraki-vmx-small (172.27.0.2/32)
+
+2025-11-07 10:05:04 - INFO - Row 3: gke-us-central1-prod-cec941c1-no3d (172.27.32.12)
+2025-11-07 10:05:04 - INFO -   Description: GKE Worker Node (hosts AdGuard/RustDesk) - 172.27.32.12
+2025-11-07 10:05:04 - INFO -   Tags: env:prod, type:infrastructure, namespace:none, zone:us-central1-a, service:gke, cluster:us-central1-prod, auto-created
+2025-11-07 10:05:05 - INFO - ✓ Created address object: gke-us-central1-prod-cec941c1-no3d (172.27.32.12/32)
+
+... (23 more objects) ...
+
+2025-11-07 10:05:30 - INFO - Committing changes to firewall...
+2025-11-07 10:05:45 - INFO - ✓ Successfully committed changes
+
+======================================================================
+Summary
+======================================================================
+Created:  25
+Failed:   0
+Skipped:  0
+
+All changes have been committed to the firewall
+======================================================================
+
+[INFO] Firewall update completed successfully!
+
+========================================================================
+Verifying in Firewall Web UI
+========================================================================
+
+After running the script, verify objects were created:
+
+1. Log into firewall web UI: https://munich-pa-415.securitydude.us
+
+2. Navigate to: Device → Objects → Addresses
+
+3. Filter by tag "auto-created" to see all objects created by script
+
+4. Check a few objects to verify:
+   - IP address is correct (with /32 CIDR)
+   - Description matches CSV
+   - Tags are properly applied
+
+5. Navigate to: Device → Objects → Tags
+
+6. Verify these tags exist:
+   - env:prod
+   - type:infrastructure, type:internalloadbalancer, type:clusterip, type:pod
+   - namespace:adguard, namespace:rustdesk, namespace:n8n, namespace:twingate, namespace:none
+   - zone:us-central1, zone:us-central1-a, zone:us-central1-b, zone:us-central1-c
+   - service:adguard, service:rustdesk, service:n8n, service:twingate, service:meraki, service:gke
+   - cluster:us-central1-prod
+   - auto-created
+
+========================================================================
+Example - Error Scenario
+========================================================================
+
+$ ./update-firewall-gke.sh
+
+[ERROR] PA_API_KEY environment variable not set
+
+Set your API key with one of these methods:
+
+  1. Export as environment variable:
+     export PA_API_KEY='your-api-key-here'
+
+  2. Load from secure file:
+     export PA_API_KEY=$(cat ~/.pa-api-key)
+
+  3. Load from GCP Secret Manager:
+     export PA_API_KEY=$(gcloud secrets versions access latest --secret='pa-api-key')
+

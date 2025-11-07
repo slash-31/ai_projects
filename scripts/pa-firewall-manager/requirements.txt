@@ -1,0 +1,5 @@
+# Palo Alto Firewall Address Object Manager
+# Python package requirements
+
+requests>=2.28.0
+urllib3>=1.26.0
