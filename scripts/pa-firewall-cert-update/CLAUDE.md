@@ -31,30 +31,72 @@ pa-firewall-cert-update/
 
 ## Development Phases
 
-### Phase 1: Configuration Backup & Certificate Discovery (CURRENT FOCUS)
-**Objective**: Safely backup firewall and identify certificate to replace
+### Phase 1: Full Backup & Certificate Discovery (COMPLETE)
+**Objective**: Comprehensive firewall backup and certificate identification
 
-Tasks:
-1. Implement REST API authentication with API key
-2. Create configuration backup function (`GET /api/?type=export&category=configuration`)
-3. Query existing certificates (`GET /api/?type=config&action=get&xpath=/config/shared/certificate`)
-4. Present interactive list for user to select certificate to replace
-5. Search XML configuration for all references to old certificate name
+Completed Tasks:
+1. ✓ XML API authentication with API key
+2. ✓ Full backup function (configuration + device state)
+   - Configuration export: `GET /api/?type=export&category=configuration` → XML file
+   - Device state export: `GET /api/?type=export&category=device-state` → TGZ archive
+3. ✓ Query existing certificates via XPath: `/config/shared/certificate`
+4. ✓ Interactive certificate selection with details (common name, issuer, expiry)
+5. ✓ XPath-based configuration search for certificate references
 
 **Key Files**:
-- `pa_cert_update.py` - Main script entry point
-- Core functions: `authenticate()`, `backup_config()`, `list_certificates()`, `search_cert_usage()`
+- `pa_cert_update.py` - Main script (700+ lines)
 
-**Testing**: Use `--dry-run` flag to validate without making changes
+**Core Functions**:
+- `test_connection()` - API validation, system info retrieval
+- `backup_configuration()` - Export running config XML
+- `backup_device_state()` - Export comprehensive device state
+- `full_backup()` - Orchestrates both backup types
+- `list_certificates()` - Query and parse certificate list
+- `search_certificate_usage()` - XPath search for cert references
 
-### Phase 2: Certificate Upload & Profile Update
-**Objective**: Upload new certificate and update SSL/TLS service profile
+**Testing**: Use `--dry-run --verbose` for detailed output without changes
 
-Tasks:
-1. Upload public certificate (`POST /api/?type=import&category=certificate`)
-2. Upload private key (included in certificate import)
-3. Upload certificate chain
-4. Update SSL/TLS service profile with new certificate name
+### Phase 2: Certificate Upload & Profile Update (COMPLETE)
+**Objective**: Upload new certificate and update SSL/TLS service profiles
+
+Completed Tasks:
+1. ✓ Upload public certificate + private key via multipart POST
+2. ✓ Upload certificate chain (optional, separate import)
+3. ✓ Update all SSL/TLS service profiles found in Phase 1
+4. ✓ Track success/failure for each operation
+5. ✓ Generate comprehensive Phase 2 completion summary
+
+**Key Files**:
+- `pa_cert_update.py` - Main script (1,178 lines)
+
+**Core Functions**:
+- `upload_certificate()` - Upload cert + key via POST with multipart form-data
+- `upload_certificate_chain()` - Upload chain file (optional)
+- `update_ssl_tls_profile()` - Update profile via XPath SET operation
+
+**API Calls**:
+```
+POST /api/?type=import&category=certificate
+Parameters: certificate-name, format=pem, passphrase (optional)
+Files: file (certificate), key (private key)
+
+POST /api/?type=config&action=set
+XPath: /config/shared/ssl-tls-service-profile/entry[@name='<profile>']
+Element: <certificate><cert_name></certificate>
+```
+
+**Error Handling**:
+- Certificate upload failure: CRITICAL - exits Phase 2
+- Chain upload failure: WARNING - continues (non-critical)
+- Profile update failure: Tracked, reported in summary
+- Partial success: Exits with code 1
+
+**Output**:
+- Step-by-step progress (3 steps)
+- Individual upload confirmations
+- Per-profile update status
+- Comprehensive completion summary
+- Warning about uncommitted changes
 
 ### Phase 3: Portal & Gateway Configuration Updates
 **Objective**: Update all firewall components using old certificate
@@ -97,6 +139,14 @@ params = {'key': api_key}
 ```
 GET /api/?type=export&category=configuration
 Response: XML file (running-config.xml)
+```
+
+### Device State Backup
+```
+GET /api/?type=export&category=device-state
+Response: TGZ archive (device-state.tgz)
+Note: Can take 1-5 minutes depending on firewall size/load
+Includes: Running config, logs, system state, diagnostics
 ```
 
 ### List Certificates

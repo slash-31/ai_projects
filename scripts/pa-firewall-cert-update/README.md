@@ -8,8 +8,8 @@ This script automates the manual certificate update process documented in `docs/
 
 ### What This Script Does
 
-1. **Backs up** the current firewall configuration
-2. **Queries** the firewall for existing certificates via REST API
+1. **Performs full backup** - Both configuration and device state
+2. **Queries** the firewall for existing certificates via XML API
 3. **Identifies** which certificate is being replaced (interactive prompt)
 4. **Searches** the configuration for all uses of the old certificate
 5. **Uploads** the new certificate (public key + private key)
@@ -154,23 +154,28 @@ python pa_cert_update.py \
 
 ## Development Phases
 
-### Phase 1: Configuration Backup & Certificate Discovery (Current)
-- ✓ REST API authentication
-- ✓ Configuration backup to local file
+### Phase 1: Full Backup & Certificate Discovery (COMPLETE)
+- ✓ XML API authentication and connection testing
+- ✓ Full firewall backup (configuration + device state)
+- ✓ Configuration backup to XML file
+- ✓ Device state backup to compressed archive
 - ✓ Query and list existing certificates
 - ✓ Interactive selection of certificate to replace
-- ✓ Search configuration for certificate usage
+- ✓ XPath-based configuration search for certificate usage
 
-### Phase 2: Certificate Upload & Profile Update
-- Upload new certificate and private key
-- Upload certificate chain
-- Update SSL/TLS service profile
+### Phase 2: Certificate Upload & Profile Update (COMPLETE)
+- ✓ Upload new certificate and private key via XML API
+- ✓ Upload certificate chain (optional)
+- ✓ Update SSL/TLS service profiles automatically
+- ✓ Track upload and update success/failure
+- ✓ Comprehensive Phase 2 completion summary
 
-### Phase 3: Portal & Gateway Configuration Updates
-- Identify all portals using old certificate
-- Update portal configurations with new certificate
-- Identify all gateways using old certificate
-- Update gateway configurations with new certificate
+### Phase 3: Portal & Gateway Configuration Updates (COMPLETE)
+- ✓ Identify all GlobalProtect portals using old certificate
+- ✓ Update portal configurations with new certificate
+- ✓ Identify all GlobalProtect gateways using old certificate
+- ✓ Update gateway configurations with new certificate
+- ✓ Comprehensive Phase 3 completion summary
 
 ### Phase 4: Commit & Validation
 - Pre-commit validation checks
@@ -188,10 +193,11 @@ python pa_cert_update.py \
 
 The script generates:
 
-1. **Configuration Backup**: `./backups/<firewall>-<timestamp>.xml`
-2. **Certificate Usage Report**: Lists all locations using old certificate
-3. **Change Summary**: Details all modifications made
-4. **Audit Log**: `./logs/pa-cert-update-<timestamp>.log`
+1. **Configuration Backup**: `./backups/<firewall>-config-<timestamp>.xml`
+2. **Device State Backup**: `./backups/<firewall>-device-state-<timestamp>.tgz`
+3. **Certificate Usage Report**: Lists all locations using old certificate
+4. **Change Summary**: Details all modifications made
+5. **Audit Log**: `./logs/pa-cert-update-<timestamp>.log`
 
 ## Safety Features
 

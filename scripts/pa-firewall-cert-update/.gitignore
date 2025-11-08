@@ -18,6 +18,8 @@ credentials.txt
 backups/
 *.xml
 *.bak
+*.tgz
+*.tar.gz
 
 # Log files
 logs/

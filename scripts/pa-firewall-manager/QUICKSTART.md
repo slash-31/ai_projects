@@ -60,7 +60,7 @@ deactivate
 
 **Recommended - Use wrapper script**:
 ```bash
-./update-firewall-gke.sh
+c
 ```
 
 **Or manually**:
